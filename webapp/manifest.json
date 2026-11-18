@@ -1,0 +1,166 @@
+{
+  "_version": "1.90.0",
+  "sap.app": {
+    "id": "project3",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:ovp",
+      "version": "1.34.0",
+      "toolsId": "572cb51a-dad4-479b-a0dd-430701d18182"
+    },
+    "dataSources": {
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zsb_ssam_analytics_v4/srvd/sap/zsd_ssam_analytics/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.154.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {},
+        "sap.ovp": {},
+        "sap.ui.rta": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project3.i18n.i18n"
+        }
+      },
+      "mainModel": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [],
+      "targets": {}
+    }
+  },
+  "sap.ovp": {
+    "globalFilterModel": "mainModel",
+    "globalFilterEntitySet": "MobileActivity",
+    "containerLayout": "resizable",
+    "enableLiveFilter": true,
+    "considerAnalyticalParameters": false,
+    "globalFilterControlType": "MacroFilterBar",
+    "cards": {
+      "card_activityByEntity": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Activity by Mobile Entity",
+          "subTitle": "SSAM transactions by mobile entity",
+          "entitySet": "MobileActivity",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ActivityByEntity",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#EntityOverview"
+        }
+      },
+      "card_createUpdate": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Create vs Update",
+          "subTitle": "Distribution of SSAM activities",
+          "entitySet": "MobileActivity",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#CreateUpdateSplit",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#CreateUpdateOverview"
+        }
+      },
+      "card_activityTrend": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Mobile Activity by Date",
+          "subTitle": "SSAM transactions over time",
+          "entitySet": "MobileActivity",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ActivityTrend",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+        }
+      },
+      "card_recentActivity": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.table",
+        "settings": {
+          "title": "Recent Mobile Activity",
+          "subTitle": "Latest SSAM transactions",
+          "entitySet": "MobileActivity",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant",
+          "addODataSelect": true
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "analytical"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
